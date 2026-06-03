@@ -1,0 +1,38 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Uu]ser[Ss]ettings/
+
+# Asset meta data should only be ignored when the project is too big to handle
+# *.meta
+
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Unity3D generated file on crash reports
+sssss/
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Crashlytics
+crashlytics-build.properties
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Visual Studio
+.vs/  
