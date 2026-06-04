@@ -4,7 +4,19 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SetTheory.unity
+    guid: 0189e63c9e5ca5e4eb08395e69dcee3f
+  - enabled: 1
+    path: Assets/Scenes/GraphTheory.unity
+    guid: 34a7fffc609c5ef4d84fad8d3c1e9e48
+  - enabled: 1
+    path: Assets/Scenes/Hub.unity
+    guid: 0bbbb8e61fd955140b981f0e78be2a96
+  - enabled: 1
+    path: Assets/Scenes/LogicGates.unity
+    guid: d1e1099b16a8a6a41961c70f314e2f22
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 90ee8f76f4c3bd546ab5917c5c07a645, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 477e08bd06fd9df49bc625b46ef8a341, type: 2}
