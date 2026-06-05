@@ -26,7 +26,14 @@ public class OllamaService : MonoBehaviour
 
     public IEnumerator Query(string prompt, System.Action<string> callback)
     {
-        string jsonBody = "{\"model\":\"" + model + "\",\"prompt\":\"" + prompt + "\",\"stream\":false}";
+        OllamaRequest requestData = new OllamaRequest
+        {
+            model = model,
+            prompt = prompt,
+            stream = false
+        };
+
+        string jsonBody = JsonUtility.ToJson(requestData);
 
         UnityWebRequest request = new UnityWebRequest(endpoint, "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonBody);
@@ -47,4 +54,12 @@ public class OllamaService : MonoBehaviour
             callback("Error: " + request.error);
         }
     }
+}
+
+[System.Serializable]
+public class OllamaRequest
+{
+    public string model;
+    public string prompt;
+    public bool stream;
 }
