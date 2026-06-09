@@ -4,16 +4,66 @@
     <meta charset="utf-8">
     <title>Logic Gates</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script>
-      AFRAME.registerComponent('navigate-on-click', {
-        schema: { url: { type: 'string' } },
-        init: function () {
-          this.el.addEventListener('click', () => {
-            window.location.href = this.data.url;
-          });
-        }
-      });
-    </script>
+    <style>
+      #tutor-overlay {
+        position: fixed;
+        bottom: 20px;
+        right: auto;
+        left: 50%;
+        width: 600px;
+        transform: translateX(-50%);
+        background: rgba(15, 52, 96, 0.92);
+        border: 1px solid #e94560;
+        border-radius: 8px;
+        padding: 16px;
+        z-index: 999;
+        font-family: sans-serif;
+        color: white;
+        pointer-events: auto;
+      }
+      #tutor-overlay h3 {
+        margin: 0 0 10px 0;
+        color: #e94560;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      #response-box {
+        background: rgba(0,0,0,0.4);
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 13px;
+        line-height: 1.5;
+        min-height: 120px;
+        max-height: 280px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+        color: #ccc;
+      }
+      #question-input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #e94560;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+      #ask-btn {
+        width: 100%;
+        padding: 8px;
+        background: #e94560;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 13px;
+      }
+      #ask-btn:hover { background: #ff6b8a; }
+      #ask-btn:disabled { background: #555; cursor: not-allowed; }
+    </style>
   </head>
   <body>
     <a-scene>
@@ -26,15 +76,65 @@
         </a-camera>
       </a-entity>
 
-      <!-- Title -->
       <a-text value="Logic Gates" align="center" position="0 3.5 -3" color="white" scale="2 2 2"></a-text>
 
-      <!-- Back button -->
       <a-entity position="0 0.8 -3">
         <a-plane navigate-on-click="url: index.html" width="1.2" height="0.4" color="#e94560" position="0 0 0"></a-plane>
         <a-text value="Back to Hub" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text>
       </a-entity>
-
     </a-scene>
+
+    <!-- AI Tutor Overlay -->
+    <div id="tutor-overlay">
+      <h3>AI Tutor — Logic Gates</h3>
+      <div id="response-box">Ask me anything about logic gates...</div>
+      <input id="question-input" type="text" placeholder="e.g. What is an AND gate?" />
+      <button id="ask-btn">Ask Phi-3</button>
+    </div>
+
+    <script>
+      AFRAME.registerComponent('navigate-on-click', {
+        schema: { url: { type: 'string' } },
+        init: function () {
+          this.el.addEventListener('click', () => {
+            window.location.href = this.data.url;
+          });
+        }
+      });
+
+      document.getElementById('ask-btn').addEventListener('click', async () => {
+        const input = document.getElementById('question-input');
+        const responseBox = document.getElementById('response-box');
+        const btn = document.getElementById('ask-btn');
+        const question = input.value.trim();
+
+        if (!question) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Thinking...';
+        responseBox.textContent = '';
+
+        try {
+          const res = await fetch('http://localhost:11434/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              model: 'phi3',
+              prompt: 'You are a discrete mathematics tutor. Answer this question about logic gates concisely: ' + question,
+              stream: false
+            })
+          });
+
+          const data = await res.json();
+          responseBox.textContent = data.response;
+        } catch (err) {
+          responseBox.textContent = 'Error: Could not reach Ollama. Make sure it is running.';
+        }
+
+        btn.disabled = false;
+        btn.textContent = 'Ask Phi-3';
+        input.value = '';
+      });
+    </script>
   </body>
-</html>
+</html> 
