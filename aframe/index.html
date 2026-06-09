@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VR Discrete Maths — Hub</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script>
+      AFRAME.registerComponent('navigate-on-click', {
+        schema: { url: { type: 'string' } },
+        init: function () {
+          this.el.addEventListener('click', () => {
+            window.location.href = this.data.url;
+          });
+        }
+      });
+
+      AFRAME.registerComponent('hover-glow', {
+        init: function () {
+            const el = this.el;
+            const originalColor = el.getAttribute('color');
+            el.addEventListener('mouseenter', () => {
+            el.setAttribute('color', '#ff6b8a');
+            });
+            el.addEventListener('mouseleave', () => {
+            el.setAttribute('color', originalColor);
+            });
+        }
+        });
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-sky color="#1a1a2e"></a-sky>
+
+      <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="20" color="#16213e"></a-plane>
+
+      <a-entity position="0 1.6 4">
+        <a-camera look-controls wasd-controls>
+          <a-cursor color="#e94560"></a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <!-- Logic Gates Panel -->
+      <a-entity position="-4 2 -3">
+        <a-plane width="2.5" height="1.5" color="#0f3460"></a-plane>
+        <a-text value="Logic Gates" align="center" position="0 0.3 0.01" color="white" scale="1.2 1.2 1.2"></a-text>
+        <a-plane navigate-on-click="url: logic-gates.html" hover-glow width="1" height="0.4" color="#e94560" position="0 -0.2 0.005"></a-plane>
+        <a-text value="Enter" align="center" position="0 -0.2 0.02" color="white" scale="1 1 1"></a-text>
+      </a-entity>
+
+      <!-- Graph Theory Panel -->
+      <a-entity position="0 2 -4">
+        <a-plane width="2.5" height="1.5" color="#0f3460"></a-plane>
+        <a-text value="Graph Theory" align="center" position="0 0.3 0.01" color="white" scale="1.2 1.2 1.2"></a-text>
+        <a-plane navigate-on-click="url: graph-theory.html" hover-glow width="1" height="0.4" color="#e94560" position="0 -0.2 0.005"></a-plane>
+        <a-text value="Enter" align="center" position="0 -0.2 0.02" color="white" scale="1 1 1"></a-text>
+      </a-entity>
+
+      <!-- Set Theory Panel -->
+      <a-entity position="4 2 -3">
+        <a-plane width="2.5" height="1.5" color="#0f3460"></a-plane>
+        <a-text value="Set Theory" align="center" position="0 0.3 0.01" color="white" scale="1.2 1.2 1.2"></a-text>
+        <a-plane navigate-on-click="url: set-theory.html" hover-glow width="1" height="0.4" color="#e94560" position="0 -0.2 0.005"></a-plane>
+        <a-text value="Enter" align="center" position="0 -0.2 0.02" color="white" scale="1 1 1"></a-text>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>

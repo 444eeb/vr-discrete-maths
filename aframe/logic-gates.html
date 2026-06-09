@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Logic Gates</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script>
+      AFRAME.registerComponent('navigate-on-click', {
+        schema: { url: { type: 'string' } },
+        init: function () {
+          this.el.addEventListener('click', () => {
+            window.location.href = this.data.url;
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-sky color="#1a1a2e"></a-sky>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="20" color="#16213e"></a-plane>
+
+      <a-entity position="0 1.6 4">
+        <a-camera look-controls wasd-controls>
+          <a-cursor color="#e94560"></a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <!-- Title -->
+      <a-text value="Logic Gates" align="center" position="0 3.5 -3" color="white" scale="2 2 2"></a-text>
+
+      <!-- Back button -->
+      <a-entity position="0 0.8 -3">
+        <a-plane navigate-on-click="url: index.html" width="1.2" height="0.4" color="#e94560" position="0 0 0"></a-plane>
+        <a-text value="Back to Hub" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>
