@@ -68,20 +68,138 @@
   <body>
     <a-scene>
       <a-sky color="#1a1a2e"></a-sky>
-      <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="20" color="#16213e"></a-plane>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="60" height="60" color="#16213e"></a-plane>
 
-      <a-entity position="0 1.6 4">
-        <a-camera look-controls wasd-controls>
+      <!-- Camera at centre of semicircle -->
+      <a-entity position="0 1.6 0">
+        <a-camera look-controls="pointerLockEnabled: true" wasd-controls>
           <a-cursor color="#e94560"></a-cursor>
         </a-camera>
       </a-entity>
 
-      <a-text value="Logic Gates" align="center" position="0 3.5 -3" color="white" scale="2 2 2"></a-text>
+      <!-- Title -->
+      <a-text value="Logic Gates" align="center" position="0 5.5 -12" color="white" scale="3 3 3"></a-text>
 
-      <a-entity position="0 0.8 -3">
-        <a-plane navigate-on-click="url: index.html" width="1.2" height="0.4" color="#e94560" position="0 0 0"></a-plane>
-        <a-text value="Back to Hub" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text>
+      <!-- Back button -->
+      <a-entity position="0 0.5 -5">
+        <a-plane navigate-on-click="url: index.html" width="1.5" height="0.5" color="#e94560"></a-plane>
+        <a-text value="Back to Hub" align="center" position="0 0 0.01" color="white" scale="1 1 1"></a-text>
       </a-entity>
+
+      <!-- All 6 gates on a radius-12 semicircle, evenly spaced at 36 degrees apart -->
+      <!-- Angles: -90, -54, -18, +18, +54, +90 from front -->
+
+      <!-- ===== AND GATE — far left, angle -90 ===== -->
+      <a-entity position="-12 2.5 0" rotation="0 90 0">
+        <a-plane width="5" height="6" color="#0f3460" opacity="0.95"></a-plane>
+        <a-text value="AND Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
+        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
+        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.75 1.2 0.01"></a-box>
+        <a-text value="Output HIGH only when\nALL inputs are HIGH." align="center" position="0 0.35 0.01" color="white" scale="1.1 1.1 1.1" width="4.5"></a-text>
+        <a-text value="A      B      OUT" align="center" position="0 -0.4 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.6 0.01"></a-box>
+        <a-text value="0      0       0" align="center" position="0 -0.95 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="0      1       0" align="center" position="0 -1.35 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      0       0" align="center" position="0 -1.75 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      1       1" align="center" position="0 -2.15 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+      </a-entity>
+
+      <!-- ===== OR GATE — angle -54 ===== -->
+      <a-entity position="-9.7 2.5 -7" rotation="0 54 0">
+        <a-plane width="5" height="6" color="#0f3460" opacity="0.95"></a-plane>
+        <a-text value="OR Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
+        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
+        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
+        <a-cylinder radius="0.35" height="0.05" theta-start="90" theta-length="180" rotation="90 0 0" position="-0.55 1.2 0.01" color="#e94560"></a-cylinder>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.75 1.2 0.01"></a-box>
+        <a-text value="Output HIGH when AT LEAST\nONE input is HIGH." align="center" position="0 0.35 0.01" color="white" scale="1.1 1.1 1.1" width="4.5"></a-text>
+        <a-text value="A      B      OUT" align="center" position="0 -0.4 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.6 0.01"></a-box>
+        <a-text value="0      0       0" align="center" position="0 -0.95 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="0      1       1" align="center" position="0 -1.35 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      0       1" align="center" position="0 -1.75 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      1       1" align="center" position="0 -2.15 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+      </a-entity>
+
+      <!-- ===== NOT GATE — angle -18 ===== -->
+      <a-entity position="-3.7 2.5 -11.4" rotation="0 18 0">
+        <a-plane width="5" height="6" color="#0f3460" opacity="0.95"></a-plane>
+        <a-text value="NOT Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
+        <a-cone radius-bottom="0.4" radius-top="0" height="0.8" rotation="0 0 -90" position="0 1.2 0.01" color="#e94560"></a-cone>
+        <a-sphere radius="0.1" color="#e94560" position="0.5 1.2 0.01"></a-sphere>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.6 1.2 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.75 1.2 0.01"></a-box>
+        <a-text value="Output is the INVERSE\nof the input." align="center" position="0 0.35 0.01" color="white" scale="1.1 1.1 1.1" width="4.5"></a-text>
+        <a-text value="A        OUT" align="center" position="0 -0.4 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.6 0.01"></a-box>
+        <a-text value="0          1" align="center" position="0 -0.95 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1          0" align="center" position="0 -1.35 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+      </a-entity>
+
+      <!-- ===== XOR GATE — angle +18 ===== -->
+      <a-entity position="3.7 2.5 -11.4" rotation="0 -18 0">
+        <a-plane width="5" height="6" color="#0f3460" opacity="0.95"></a-plane>
+        <a-text value="XOR Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
+        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
+        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
+        <a-cylinder radius="0.35" height="0.05" theta-start="90" theta-length="180" rotation="90 0 0" position="-0.55 1.2 0.01" color="#e94560"></a-cylinder>
+        <a-cylinder radius="0.35" height="0.05" theta-start="90" theta-length="180" rotation="90 0 0" position="-0.72 1.2 0.01" color="#1a1a2e"></a-cylinder>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.75 1.2 0.01"></a-box>
+        <a-text value="Output HIGH when inputs\nare DIFFERENT." align="center" position="0 0.35 0.01" color="white" scale="1.1 1.1 1.1" width="4.5"></a-text>
+        <a-text value="A      B      OUT" align="center" position="0 -0.4 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.6 0.01"></a-box>
+        <a-text value="0      0       0" align="center" position="0 -0.95 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="0      1       1" align="center" position="0 -1.35 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      0       1" align="center" position="0 -1.75 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      1       0" align="center" position="0 -2.15 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+      </a-entity>
+
+      <!-- ===== NAND GATE — angle +54 ===== -->
+      <a-entity position="9.7 2.5 -7" rotation="0 -54 0">
+        <a-plane width="5" height="6" color="#0f3460" opacity="0.95"></a-plane>
+        <a-text value="NAND Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
+        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
+        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
+        <a-sphere radius="0.1" color="#e94560" position="0.75 1.2 0.01"></a-sphere>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.95 1.2 0.01"></a-box>
+        <a-text value="Opposite of AND.\nOutput LOW only when\nALL inputs are HIGH." align="center" position="0 0.2 0.01" color="white" scale="1.05 1.05 1.05" width="4.5"></a-text>
+        <a-text value="A      B      OUT" align="center" position="0 -0.55 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.75 0.01"></a-box>
+        <a-text value="0      0       1" align="center" position="0 -1.1 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="0      1       1" align="center" position="0 -1.5 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      0       1" align="center" position="0 -1.9 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      1       0" align="center" position="0 -2.3 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+      </a-entity>
+
+      <!-- ===== NOR GATE — angle +90 ===== -->
+      <a-entity position="12 2.5 0" rotation="0 -90 0">
+        <a-plane width="5" height="6" color="#0f3460" opacity="0.95"></a-plane>
+        <a-text value="NOR Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
+        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
+        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
+        <a-cylinder radius="0.35" height="0.05" theta-start="90" theta-length="180" rotation="90 0 0" position="-0.55 1.2 0.01" color="#e94560"></a-cylinder>
+        <a-sphere radius="0.1" color="#e94560" position="0.75 1.2 0.01"></a-sphere>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
+        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.95 1.2 0.01"></a-box>
+        <a-text value="Opposite of OR.\nOutput HIGH only when\nALL inputs are LOW." align="center" position="0 0.2 0.01" color="white" scale="1.05 1.05 1.05" width="4.5"></a-text>
+        <a-text value="A      B      OUT" align="center" position="0 -0.55 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.75 0.01"></a-box>
+        <a-text value="0      0       1" align="center" position="0 -1.1 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="0      1       0" align="center" position="0 -1.5 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      0       0" align="center" position="0 -1.9 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="1      1       0" align="center" position="0 -2.3 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+      </a-entity>
+
     </a-scene>
 
     <!-- AI Tutor Overlay -->
@@ -137,4 +255,4 @@
       });
     </script>
   </body>
-</html> 
+</html>
