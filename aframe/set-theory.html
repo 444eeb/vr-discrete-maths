@@ -5,64 +5,7 @@
     <title>Set Theory</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <style>
-      #tutor-overlay {
-        position: fixed;
-        bottom: 20px;
-        right: auto;
-        left: 50%;
-        width: 600px;
-        transform: translateX(-50%);
-        background: rgba(15, 52, 96, 0.92);
-        border: 1px solid #e94560;
-        border-radius: 8px;
-        padding: 16px;
-        z-index: 999;
-        font-family: sans-serif;
-        color: white;
-        pointer-events: auto;
-      }
-      #tutor-overlay h3 {
-        margin: 0 0 10px 0;
-        color: #e94560;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      #response-box {
-        background: rgba(0,0,0,0.4);
-        border-radius: 4px;
-        padding: 10px;
-        font-size: 13px;
-        line-height: 1.5;
-        min-height: 120px;
-        max-height: 280px;
-        overflow-y: auto;
-        margin-bottom: 10px;
-        color: #ccc;
-      }
-      #question-input {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #e94560;
-        background: rgba(0,0,0,0.5);
-        color: white;
-        font-size: 13px;
-        margin-bottom: 8px;
-      }
-      #ask-btn {
-        width: 100%;
-        padding: 8px;
-        background: #e94560;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 13px;
-      }
-      #ask-btn:hover { background: #ff6b8a; }
-      #ask-btn:disabled { background: #555; cursor: not-allowed; }
+      body { margin: 0; }
     </style>
   </head>
   <body>
@@ -71,8 +14,14 @@
       <a-plane position="0 0 0" rotation="-90 0 0" width="60" height="60" color="#16213e"></a-plane>
 
       <a-entity position="0 1.6 0">
-        <a-camera look-controls="pointerLockEnabled: true" wasd-controls>
-          <a-cursor color="#e94560"></a-cursor>
+        <a-camera look-controls wasd-controls>
+          <a-cursor
+            color="#e94560"
+            fuse="false"
+            raycaster="objects: .clickable"
+            geometry="primitive: ring; radiusInner: 0.012; radiusOuter: 0.018"
+            material="color: #e94560; shader: flat">
+          </a-cursor>
         </a-camera>
       </a-entity>
 
@@ -81,7 +30,7 @@
 
       <!-- Back button -->
       <a-entity position="0 0.5 -5">
-        <a-plane navigate-on-click="url: index.html" width="1.5" height="0.5" color="#e94560"></a-plane>
+        <a-plane class="clickable" navigate-on-click="url: index.html" width="1.5" height="0.5" color="#e94560"></a-plane>
         <a-text value="Back to Hub" align="center" position="0 0 0.01" color="white" scale="1 1 1"></a-text>
       </a-entity>
 
@@ -89,7 +38,6 @@
       <a-entity position="-12 3 0" rotation="0 90 0">
         <a-plane width="5" height="8" color="#0f3460" opacity="0.95"></a-plane>
         <a-text value="Sets &amp; Notation" align="center" position="0 3.5 0.01" color="#e94560" scale="1.5 1.5 1.5"></a-text>
-        <!-- Visual: circle with elements -->
         <a-torus radius="0.9" radius-tubular="0.03" color="#4ecca3" position="0 2.0 0.01"></a-torus>
         <a-text value="1" align="center" position="-0.5 2.4 0.05" color="white" scale="1 1 1"></a-text>
         <a-text value="2" align="center" position="0.4 2.3 0.05" color="white" scale="1 1 1"></a-text>
@@ -110,7 +58,6 @@
       <a-entity position="-9.7 3 -7" rotation="0 54 0">
         <a-plane width="5" height="8" color="#0f3460" opacity="0.95"></a-plane>
         <a-text value="Union  A U B" align="center" position="0 3.5 0.01" color="#e94560" scale="1.5 1.5 1.5"></a-text>
-        <!-- Venn diagram -->
         <a-torus radius="0.8" radius-tubular="0.03" color="#4ecca3" position="-0.45 2.0 0.01"></a-torus>
         <a-torus radius="0.8" radius-tubular="0.03" color="#e94560" position="0.45 2.0 0.01"></a-torus>
         <a-plane width="0.55" height="1.3" color="#ff6b8a" opacity="0.3" position="0 2.0 0.005"></a-plane>
@@ -127,7 +74,6 @@
       <a-entity position="-3.7 3 -11.4" rotation="0 18 0">
         <a-plane width="5" height="8" color="#0f3460" opacity="0.95"></a-plane>
         <a-text value="Intersection  A n B" align="center" position="0 3.5 0.01" color="#e94560" scale="1.3 1.3 1.3"></a-text>
-        <!-- Venn diagram -->
         <a-torus radius="0.8" radius-tubular="0.03" color="#4ecca3" position="-0.45 2.0 0.01"></a-torus>
         <a-torus radius="0.8" radius-tubular="0.03" color="#e94560" position="0.45 2.0 0.01"></a-torus>
         <a-plane width="0.55" height="1.3" color="#4ecca3" opacity="0.5" position="0 2.0 0.005"></a-plane>
@@ -144,7 +90,6 @@
       <a-entity position="3.7 3 -11.4" rotation="0 -18 0">
         <a-plane width="5" height="8" color="#0f3460" opacity="0.95"></a-plane>
         <a-text value="Complement  A'" align="center" position="0 3.5 0.01" color="#e94560" scale="1.5 1.5 1.5"></a-text>
-        <!-- Visual: universal set with inner circle -->
         <a-plane width="2.8" height="2.0" color="#16213e" opacity="0.8" position="0 2.0 0.01"></a-plane>
         <a-torus radius="0.65" radius-tubular="0.03" color="#4ecca3" position="0 2.0 0.02"></a-torus>
         <a-text value="U" align="center" position="1.1 2.8 0.05" color="white" scale="0.9 0.9 0.9"></a-text>
@@ -161,7 +106,6 @@
       <a-entity position="9.7 3 -7" rotation="0 -54 0">
         <a-plane width="5" height="8" color="#0f3460" opacity="0.95"></a-plane>
         <a-text value="Subsets" align="center" position="0 3.5 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
-        <!-- Visual: nested circles -->
         <a-torus radius="1.1" radius-tubular="0.03" color="#4ecca3" position="0 2.0 0.01"></a-torus>
         <a-torus radius="0.6" radius-tubular="0.03" color="#e94560" position="0 2.0 0.01"></a-torus>
         <a-text value="B" align="center" position="0 2.0 0.05" color="#e94560" scale="1 1 1"></a-text>
@@ -194,15 +138,60 @@
         <a-text value="A n A = A" align="center" position="0 -3.35 0.01" color="white" scale="1 1 1"></a-text>
       </a-entity>
 
-    </a-scene>
+      <!-- ===== AI TUTOR PANEL ===== -->
+      <a-entity position="0 2.5 8" rotation="0 180 0">
+        <a-plane width="10" height="8" color="#0a1628" opacity="0.97"></a-plane>
+        <a-text value="AI Tutor — Set Theory" align="center" position="0 3.4 0.01" color="#e94560" scale="1.3 1.3 1.3"></a-text>
+        <a-box width="9.5" height="0.03" depth="0.01" color="#e94560" position="0 3.05 0.01"></a-box>
 
-    <!-- AI Tutor Overlay -->
-    <div id="tutor-overlay">
-      <h3>AI Tutor — Set Theory</h3>
-      <div id="response-box">Ask me anything about set theory...</div>
-      <input id="question-input" type="text" placeholder="e.g. What is a Cartesian product?" />
-      <button id="ask-btn">Ask Phi-3</button>
-    </div>
+        <a-text id="input-display" value="Gaze at letters to type..." align="left" position="-4.3 2.4 0.01" color="white" scale="0.8 0.8 0.8" width="9"></a-text>
+
+        <a-plane width="9" height="2" color="#071020" position="0 1.55 0.01"></a-plane>
+        <a-text id="response-display" value="Response will appear here..." align="left" position="-4.3 2.0 0.05" color="#ccc" scale="0.6 0.6 0.6" width="13" wrap-count="90" baseline="top"></a-text>
+
+        <!-- ROW 1: Q-P -->
+        <a-plane class="clickable" keyboard-key="letter: Q" position="-4.25 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="Q" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: W" position="-3.5 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="W" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: E" position="-2.75 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="E" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: R" position="-2.0 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="R" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: T" position="-1.25 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="T" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: Y" position="-0.5 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="Y" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: U" position="0.25 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="U" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: I" position="1.0 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="I" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: O" position="1.75 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="O" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: P" position="2.5 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="P" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+
+        <!-- ROW 2: A-L -->
+        <a-plane class="clickable" keyboard-key="letter: A" position="-3.875 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="A" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: S" position="-3.125 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="S" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: D" position="-2.375 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="D" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: F" position="-1.625 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="F" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: G" position="-0.875 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="G" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: H" position="-0.125 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="H" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: J" position="0.625 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="J" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: K" position="1.375 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="K" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: L" position="2.125 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="L" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+
+        <!-- ROW 3: Z-M -->
+        <a-plane class="clickable" keyboard-key="letter: Z" position="-3.5 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="Z" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: X" position="-2.75 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="X" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: C" position="-2.0 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="C" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: V" position="-1.25 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="V" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: B" position="-0.5 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="B" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: N" position="0.25 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="N" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: M" position="1.0 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="M" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+
+        <!-- BOTTOM ROW: CLEAR / SPACE / BACKSPACE -->
+        <a-plane class="clickable" keyboard-key="letter: CLEAR" position="-3.5 -2.05 0.02" width="1.5" height="0.55" color="#8b1a2b"><a-text value="CLEAR" align="center" position="0 0 0.01" color="white" scale="0.6 0.6 0.6"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: SPACE" position="-0.75 -2.05 0.02" width="3.5" height="0.55" color="#0f3460"><a-text value="SPACE" align="center" position="0 0 0.01" color="white" scale="0.8 0.8 0.8"></a-text></a-plane>
+        <a-plane class="clickable" keyboard-key="letter: BACK" position="2.55 -2.05 0.02" width="1.6" height="0.55" color="#8b1a2b"><a-text value="BACKSPACE" align="center" position="0 0 0.01" color="white" scale="0.5 0.5 0.5"></a-text></a-plane>
+
+        <!-- ASK button -->
+        <a-plane class="clickable" keyboard-key="letter: ASK" position="3.95 -1.05 0.02" width="1.4" height="1.4" color="#e94560"><a-text value="ASK\nPhi-3" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
+
+      </a-entity>
+
+    </a-scene>
 
     <script>
       AFRAME.registerComponent('navigate-on-click', {
@@ -214,17 +203,52 @@
         }
       });
 
-      document.getElementById('ask-btn').addEventListener('click', async () => {
-        const input = document.getElementById('question-input');
-        const responseBox = document.getElementById('response-box');
-        const btn = document.getElementById('ask-btn');
-        const question = input.value.trim();
+      let currentInput = '';
+      let isWaiting = false;
 
-        if (!question) return;
+      AFRAME.registerComponent('keyboard-key', {
+        schema: { letter: { type: 'string' } },
+        init: function () {
+          const el = this.el;
+          const letter = this.data.letter;
+          const originalColor = el.getAttribute('color');
 
-        btn.disabled = true;
-        btn.textContent = 'Thinking...';
-        responseBox.textContent = '';
+          el.addEventListener('mouseenter', () => {
+            el.setAttribute('color', '#ff6b8a');
+          });
+          el.addEventListener('mouseleave', () => {
+            el.setAttribute('color', originalColor);
+          });
+
+          el.addEventListener('click', () => {
+            if (isWaiting) return;
+            const display = document.getElementById('input-display');
+
+            if (letter === 'SPACE') {
+              currentInput += ' ';
+            } else if (letter === 'BACK') {
+              currentInput = currentInput.slice(0, -1);
+            } else if (letter === 'CLEAR') {
+              currentInput = '';
+            } else if (letter === 'ASK') {
+              if (currentInput.trim() === '') return;
+              askTutor(currentInput.trim());
+              return;
+            } else {
+              currentInput += letter;
+            }
+
+            display.setAttribute('value', currentInput || 'Gaze at letters to type...');
+          });
+        }
+      });
+
+      async function askTutor(question) {
+        isWaiting = true;
+        const response = document.getElementById('response-display');
+        const display = document.getElementById('input-display');
+        response.setAttribute('value', 'Thinking...');
+        display.setAttribute('value', 'Q: ' + question);
 
         try {
           const res = await fetch('http://localhost:11434/api/generate', {
@@ -232,21 +256,19 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               model: 'phi3',
-              prompt: 'You are a discrete mathematics tutor. Answer this question about Set Theory concisely: ' + question,
+              prompt: 'You are a discrete mathematics tutor. Answer this question about set theory concisely in 3-4 sentences max: ' + question,
               stream: false
             })
           });
-
           const data = await res.json();
-          responseBox.textContent = data.response;
+          response.setAttribute('value', 'Q: ' + question + '\n\n' + data.response);
         } catch (err) {
-          responseBox.textContent = 'Error: Could not reach Ollama. Make sure it is running.';
+          response.setAttribute('value', 'Error: Could not reach Ollama. Make sure it is running.');
         }
 
-        btn.disabled = false;
-        btn.textContent = 'Ask Phi-3';
-        input.value = '';
-      });
+        currentInput = '';
+        isWaiting = false;
+      }
     </script>
   </body>
 </html>
