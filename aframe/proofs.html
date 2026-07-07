@@ -2,57 +2,45 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>DiscreteVR — Logic Gates</title>
+    <title>DiscreteVR — Proofs</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <style>
-      body { margin: 0; }
-    </style>
+    <style> body { margin: 0; } </style>
   </head>
   <body>
     <a-scene fog="type: linear; color: #0a1230; near: 18; far: 60">
-      <!-- Atmosphere (matches hub) -->
       <a-sky material="shader: skygradient; topColor: #05070f; bottomColor: #12203f"></a-sky>
-      <a-entity starfield="count: 600; radius: 70"></a-entity>
-      <!-- Binary 0/1 rain drifting in the far background (thematic) -->
-      <a-entity binary-rain></a-entity>
-
+      <a-entity starfield="count: 550; radius: 70"></a-entity>
+            <a-entity angle-stairs="count: 16"></a-entity>
+      <a-entity grand-stairs></a-entity>
       <a-light type="ambient" color="#9aa8d0" intensity="0.85"></a-light>
       <a-light type="directional" color="#ffffff" intensity="0.45" position="3 6 4"></a-light>
       <a-light type="point" color="#e94560" intensity="0.4" position="0 6 0" distance="30"></a-light>
 
-      <!-- Neon grid floor -->
       <a-plane rotation="-90 0 0" width="120" height="120" position="0 0 0"
                material="shader: flat; color: #070c1c"></a-plane>
       <a-entity geometry="primitive: plane; width: 120; height: 120; segmentsWidth: 60; segmentsHeight: 60"
                 rotation="-90 0 0" position="0 0.02 0"
                 material="wireframe: true; color: #21486b; shader: flat; opacity: 0.6; transparent: true"></a-entity>
 
-      <!-- Camera RIG + ring cursor -->
       <a-entity id="rig" position="0 0 0">
         <a-camera position="0 1.6 0" look-controls wasd-controls>
-          <a-cursor
-            color="#e94560"
-            fuse="false"
-            raycaster="objects: .clickable"
+          <a-cursor color="#e94560" fuse="false" raycaster="objects: .clickable"
             geometry="primitive: ring; radiusInner: 0.012; radiusOuter: 0.018"
-            material="color: #e94560; shader: flat">
-          </a-cursor>
+            material="color: #e94560; shader: flat"></a-cursor>
         </a-camera>
       </a-entity>
 
-      <!-- Title + branding + small rotating signature -->
       <a-entity position="0 9.3 -12"
                 animation="property: rotation; to: 0 360 0; loop: true; dur: 42000; easing: linear">
         <a-icosahedron radius="1.1" material="wireframe: true; shader: flat; color: #4ce0b3"></a-icosahedron>
         <a-octahedron radius="0.6" material="wireframe: true; shader: flat; color: #e94560"></a-octahedron>
       </a-entity>
       <a-entity position="0 7 -12">
-        <a-text value="Logic Gates" align="center" color="white" scale="3 3 3"></a-text>
-        <a-plane width="4.5" height="0.04" position="0 -0.75 0" material="shader: flat; color: #e94560"></a-plane>
+        <a-text value="Proofs" align="center" color="white" scale="3 3 3"></a-text>
+        <a-plane width="2.6" height="0.04" position="0 -0.75 0" material="shader: flat; color: #e94560"></a-plane>
         <a-text value="DiscreteVR" align="center" position="0 -1.15 0" color="#4ce0b3" scale="0.9 0.9 0.9"></a-text>
       </a-entity>
 
-      <!-- Back button (framed + hover glow) -->
       <a-entity position="0 0.6 -5">
         <a-plane width="1.75" height="0.62" position="0 0 -0.02" material="shader: flat; color: #e94560; opacity: 0.25"></a-plane>
         <a-plane class="clickable" navigate-on-click="url: index.html" hover-glow
@@ -60,137 +48,79 @@
         <a-text value="Back to Hub" align="center" position="0 0 0.02" color="white" scale="1 1 1"></a-text>
       </a-entity>
 
-      <!-- ===== AND GATE ===== -->
       <a-entity position="-12 2.5 0" rotation="0 90 0">
         <a-plane width="5.2" height="6.2" position="0 0 -0.03" material="shader: flat; color: #e94560; opacity: 0.22"></a-plane>
         <a-plane width="5" height="6" material="shader: flat; color: #0f3460; opacity: 0.97"></a-plane>
-        <a-text value="AND Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
-        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
-        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.75 1.2 0.01"></a-box>
-        <a-text value="Output HIGH only when\nALL inputs are HIGH." align="center" position="0 0.35 0.01" color="white" scale="1.1 1.1 1.1" width="4.5"></a-text>
-        <a-text value="A      B      OUT" align="center" position="0 -0.4 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
-        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.6 0.01"></a-box>
-        <a-text value="0      0       0" align="center" position="0 -0.95 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="0      1       0" align="center" position="0 -1.35 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      0       0" align="center" position="0 -1.75 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      1       1" align="center" position="0 -2.15 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="Direct Proof" align="center" position="0 2.4 0.01" color="#e94560" scale="1.6 1.6 1.6"></a-text>
+        <a-text value="Assume the hypothesis, then\nuse definitions and logic to\nreach the conclusion." align="center" position="0 1.4 0.01" color="white" scale="0.95 0.95 0.95" width="4.5"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 0.3 0.01"></a-box>
+        <a-text value="Claim: if n is even, n^2 is even.\n\nn = 2k\nn^2 = 4k^2 = 2(2k^2)\nwhich is even.   QED" align="center" position="0 -1.2 0.01" color="#4ecca3" scale="0.9 0.9 0.9" width="4.5"></a-text>
       </a-entity>
 
-      <!-- ===== OR GATE ===== -->
       <a-entity position="-9.7 2.5 -7" rotation="0 54 0">
         <a-plane width="5.2" height="6.2" position="0 0 -0.03" material="shader: flat; color: #e94560; opacity: 0.22"></a-plane>
         <a-plane width="5" height="6" material="shader: flat; color: #0f3460; opacity: 0.97"></a-plane>
-        <a-text value="OR Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
-        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
-        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
-        <a-cylinder radius="0.35" height="0.05" theta-start="90" theta-length="180" rotation="90 0 0" position="-0.55 1.2 0.01" color="#e94560"></a-cylinder>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.75 1.2 0.01"></a-box>
-        <a-text value="Output HIGH when AT LEAST\nONE input is HIGH." align="center" position="0 0.35 0.01" color="white" scale="1.1 1.1 1.1" width="4.5"></a-text>
-        <a-text value="A      B      OUT" align="center" position="0 -0.4 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
-        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.6 0.01"></a-box>
-        <a-text value="0      0       0" align="center" position="0 -0.95 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="0      1       1" align="center" position="0 -1.35 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      0       1" align="center" position="0 -1.75 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      1       1" align="center" position="0 -2.15 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="Contrapositive" align="center" position="0 2.4 0.01" color="#e94560" scale="1.5 1.5 1.5"></a-text>
+        <a-text value="P => Q  is equivalent to\n~Q => ~P" align="center" position="0 1.4 0.01" color="#4ecca3" scale="1.0 1.0 1.0" width="4.5"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 0.6 0.01"></a-box>
+        <a-text value="Prove the contrapositive when\nit is easier." align="center" position="0 -0.1 0.01" color="white" scale="0.95 0.95 0.95" width="4.5"></a-text>
+        <a-text value="Claim: if n^2 is even, n is even.\nInstead prove: if n is odd,\nthen n^2 is odd." align="center" position="0 -1.4 0.01" color="white" scale="0.9 0.9 0.9" width="4.5"></a-text>
       </a-entity>
 
-      <!-- ===== NOT GATE ===== -->
       <a-entity position="-3.7 2.5 -11.4" rotation="0 18 0">
         <a-plane width="5.2" height="6.2" position="0 0 -0.03" material="shader: flat; color: #e94560; opacity: 0.22"></a-plane>
         <a-plane width="5" height="6" material="shader: flat; color: #0f3460; opacity: 0.97"></a-plane>
-        <a-text value="NOT Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
-        <a-cone radius-bottom="0.4" radius-top="0" height="0.8" rotation="0 0 -90" position="0 1.2 0.01" color="#e94560"></a-cone>
-        <a-sphere radius="0.1" color="#e94560" position="0.5 1.2 0.01"></a-sphere>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.6 1.2 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.75 1.2 0.01"></a-box>
-        <a-text value="Output is the INVERSE\nof the input." align="center" position="0 0.35 0.01" color="white" scale="1.1 1.1 1.1" width="4.5"></a-text>
-        <a-text value="A        OUT" align="center" position="0 -0.4 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
-        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.6 0.01"></a-box>
-        <a-text value="0          1" align="center" position="0 -0.95 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1          0" align="center" position="0 -1.35 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="Proof by Contradiction" align="center" position="0 2.4 0.01" color="#e94560" scale="1.3 1.3 1.3"></a-text>
+        <a-text value="Assume the statement is FALSE,\nthen derive a contradiction." align="center" position="0 1.4 0.01" color="white" scale="0.95 0.95 0.95" width="4.5"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 0.5 0.01"></a-box>
+        <a-text value="Claim: sqrt(2) is irrational.\n\nAssume sqrt(2) = a/b in lowest terms\n=> a^2 = 2b^2 => a and b both even\n=> contradicts 'lowest terms'.  QED" align="center" position="0 -1.1 0.01" color="#4ecca3" scale="0.85 0.85 0.85" width="4.5"></a-text>
       </a-entity>
 
-      <!-- ===== XOR GATE ===== -->
       <a-entity position="3.7 2.5 -11.4" rotation="0 -18 0">
         <a-plane width="5.2" height="6.2" position="0 0 -0.03" material="shader: flat; color: #e94560; opacity: 0.22"></a-plane>
         <a-plane width="5" height="6" material="shader: flat; color: #0f3460; opacity: 0.97"></a-plane>
-        <a-text value="XOR Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
-        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
-        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
-        <a-cylinder radius="0.35" height="0.05" theta-start="90" theta-length="180" rotation="90 0 0" position="-0.55 1.2 0.01" color="#e94560"></a-cylinder>
-        <a-cylinder radius="0.35" height="0.05" theta-start="90" theta-length="180" rotation="90 0 0" position="-0.72 1.2 0.01" color="#0f3460"></a-cylinder>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.75 1.2 0.01"></a-box>
-        <a-text value="Output HIGH when inputs\nare DIFFERENT." align="center" position="0 0.35 0.01" color="white" scale="1.1 1.1 1.1" width="4.5"></a-text>
-        <a-text value="A      B      OUT" align="center" position="0 -0.4 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
-        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.6 0.01"></a-box>
-        <a-text value="0      0       0" align="center" position="0 -0.95 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="0      1       1" align="center" position="0 -1.35 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      0       1" align="center" position="0 -1.75 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      1       0" align="center" position="0 -2.15 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="Proof by Induction" align="center" position="0 2.4 0.01" color="#e94560" scale="1.4 1.4 1.4"></a-text>
+        <a-box width="0.18" height="0.9" depth="0.03" color="#e94560" position="-1.2 1.6 0.05" rotation="0 0 12"></a-box>
+        <a-box width="0.18" height="0.9" depth="0.03" color="#e94560" position="-0.6 1.6 0.05" rotation="0 0 12"></a-box>
+        <a-box width="0.18" height="0.9" depth="0.03" color="#e94560" position="0.0 1.6 0.05" rotation="0 0 12"></a-box>
+        <a-box width="0.18" height="0.9" depth="0.03" color="#e94560" position="0.6 1.6 0.05" rotation="0 0 12"></a-box>
+        <a-box width="0.18" height="0.9" depth="0.03" color="#e94560" position="1.2 1.6 0.05" rotation="0 0 12"></a-box>
+        <a-text value="1. Base case: true for n = 1.\n2. Step: if true for k, then\n   true for k+1.\n=> true for all n." align="center" position="0 0.1 0.01" color="white" scale="0.9 0.9 0.9" width="4.5"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.9 0.01"></a-box>
+        <a-text value="Example: 1+2+...+n = n(n+1)/2" align="center" position="0 -1.6 0.01" color="#4ecca3" scale="0.9 0.9 0.9" width="4.5"></a-text>
       </a-entity>
 
-      <!-- ===== NAND GATE ===== -->
       <a-entity position="9.7 2.5 -7" rotation="0 -54 0">
         <a-plane width="5.2" height="6.2" position="0 0 -0.03" material="shader: flat; color: #e94560; opacity: 0.22"></a-plane>
         <a-plane width="5" height="6" material="shader: flat; color: #0f3460; opacity: 0.97"></a-plane>
-        <a-text value="NAND Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
-        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
-        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
-        <a-sphere radius="0.1" color="#e94560" position="0.75 1.2 0.01"></a-sphere>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.95 1.2 0.01"></a-box>
-        <a-text value="Opposite of AND.\nOutput LOW only when\nALL inputs are HIGH." align="center" position="0 0.2 0.01" color="white" scale="1.05 1.05 1.05" width="4.5"></a-text>
-        <a-text value="A      B      OUT" align="center" position="0 -0.55 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
-        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.75 0.01"></a-box>
-        <a-text value="0      0       1" align="center" position="0 -1.1 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="0      1       1" align="center" position="0 -1.5 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      0       1" align="center" position="0 -1.9 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      1       0" align="center" position="0 -2.3 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="Counterexample" align="center" position="0 2.4 0.01" color="#e94560" scale="1.5 1.5 1.5"></a-text>
+        <a-text value="2" align="center" position="-1.35 1.6 0.01" color="#e94560" scale="1.1 1.1 1.1" width="4.5"></a-text>
+        <a-text value="3" align="center" position="-0.45 1.6 0.01" color="#4ecca3" scale="1.1 1.1 1.1" width="4.5"></a-text>
+        <a-text value="5" align="center" position="0.45 1.6 0.01" color="#4ecca3" scale="1.1 1.1 1.1" width="4.5"></a-text>
+        <a-text value="7" align="center" position="1.35 1.6 0.01" color="#4ecca3" scale="1.1 1.1 1.1" width="4.5"></a-text>
+        <a-text value="A single example can\nDISPROVE a universal claim." align="center" position="0 0.7 0.01" color="white" scale="0.95 0.95 0.95" width="4.5"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 0.0 0.01"></a-box>
+        <a-text value="Claim: 'all primes are odd.'\nCounterexample: 2 is prime\nand even. The claim is false." align="center" position="0 -1.3 0.01" color="#4ecca3" scale="0.9 0.9 0.9" width="4.5"></a-text>
       </a-entity>
 
-      <!-- ===== NOR GATE ===== -->
       <a-entity position="12 2.5 0" rotation="0 -90 0">
         <a-plane width="5.2" height="6.2" position="0 0 -0.03" material="shader: flat; color: #e94560; opacity: 0.22"></a-plane>
         <a-plane width="5" height="6" material="shader: flat; color: #0f3460; opacity: 0.97"></a-plane>
-        <a-text value="NOR Gate" align="center" position="0 2.4 0.01" color="#e94560" scale="1.8 1.8 1.8"></a-text>
-        <a-box width="1" height="0.7" depth="0.05" color="#e94560" position="-0.2 1.2 0.01"></a-box>
-        <a-cylinder radius="0.35" height="0.05" theta-start="270" theta-length="180" rotation="90 0 0" position="0.25 1.2 0.01" color="#e94560"></a-cylinder>
-        <a-cylinder radius="0.35" height="0.05" theta-start="90" theta-length="180" rotation="90 0 0" position="-0.55 1.2 0.01" color="#e94560"></a-cylinder>
-        <a-sphere radius="0.1" color="#e94560" position="0.75 1.2 0.01"></a-sphere>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.38 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="-0.85 1.02 0.01"></a-box>
-        <a-box width="0.35" height="0.05" depth="0.02" color="white" position="0.95 1.2 0.01"></a-box>
-        <a-text value="Opposite of OR.\nOutput HIGH only when\nALL inputs are LOW." align="center" position="0 0.2 0.01" color="white" scale="1.05 1.05 1.05" width="4.5"></a-text>
-        <a-text value="A      B      OUT" align="center" position="0 -0.55 0.01" color="#e94560" scale="1.1 1.1 1.1"></a-text>
-        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 -0.75 0.01"></a-box>
-        <a-text value="0      0       1" align="center" position="0 -1.1 0.01" color="#4ecca3" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="0      1       0" align="center" position="0 -1.5 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      0       0" align="center" position="0 -1.9 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
-        <a-text value="1      1       0" align="center" position="0 -2.3 0.01" color="white" scale="1.05 1.05 1.05"></a-text>
+        <a-text value="Anatomy of a Proof" align="center" position="0 2.4 0.01" color="#e94560" scale="1.4 1.4 1.4"></a-text>
+        <a-text value="A proof is a logical chain from\nassumptions to conclusion." align="center" position="0 1.5 0.01" color="white" scale="0.95 0.95 0.95" width="4.5"></a-text>
+        <a-box width="4.5" height="0.03" depth="0.01" color="#e94560" position="0 0.8 0.01"></a-box>
+        <a-text value="=>   implies\ntherefore   therefore\nfor all   for all\nexists   there exists\nQED   end of proof (QED)" align="center" position="0 -0.6 0.01" color="#4ecca3" scale="0.95 0.95 0.95" width="4.5"></a-text>
       </a-entity>
 
-      <!-- ===== AI TUTOR PANEL (behind the user — turn around) ===== -->
+      <!-- ===== AI TUTOR PANEL ===== -->
       <a-entity position="0 2.5 8" rotation="0 180 0">
         <a-plane width="10.4" height="8.4" position="0 0 -0.03" material="shader: flat; color: #e94560; opacity: 0.22"></a-plane>
         <a-plane width="10" height="8" material="shader: flat; color: #0a1628; opacity: 0.98"></a-plane>
-        <a-text value="AI Tutor — Logic Gates" align="center" position="0 3.4 0.01" color="#e94560" scale="1.3 1.3 1.3"></a-text>
+        <a-text value="AI Tutor — Proofs" align="center" position="0 3.4 0.01" color="#e94560" scale="1.3 1.3 1.3"></a-text>
         <a-box width="9.5" height="0.03" depth="0.01" color="#e94560" position="0 3.05 0.01"></a-box>
-
-        <!-- Input display -->
         <a-text id="input-display" value="Gaze at letters to type..." align="left" position="-4.3 2.4 0.01" color="white" scale="0.8 0.8 0.8" width="9"></a-text>
-
-        <!-- Response display -->
         <a-plane width="9" height="2" material="shader: flat; color: #071020" position="0 1.55 0.01"></a-plane>
         <a-text id="response-display" value="Response will appear here..." align="left" position="-4.3 2.0 0.05" color="#ccc" scale="0.6 0.6 0.6" width="13" wrap-count="90" baseline="top"></a-text>
-        <!-- ROW 1: Q-P -->
         <a-plane class="clickable" keyboard-key="letter: Q" position="-4.25 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="Q" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: W" position="-3.5 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="W" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: E" position="-2.75 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="E" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
@@ -201,8 +131,6 @@
         <a-plane class="clickable" keyboard-key="letter: I" position="1.0 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="I" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: O" position="1.75 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="O" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: P" position="2.5 -0.1 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="P" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
-
-        <!-- ROW 2: A-L -->
         <a-plane class="clickable" keyboard-key="letter: A" position="-3.875 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="A" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: S" position="-3.125 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="S" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: D" position="-2.375 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="D" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
@@ -212,8 +140,6 @@
         <a-plane class="clickable" keyboard-key="letter: J" position="0.625 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="J" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: K" position="1.375 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="K" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: L" position="2.125 -0.75 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="L" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
-
-        <!-- ROW 3: Z-M -->
         <a-plane class="clickable" keyboard-key="letter: Z" position="-3.5 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="Z" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: X" position="-2.75 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="X" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: C" position="-2.0 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="C" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
@@ -221,20 +147,14 @@
         <a-plane class="clickable" keyboard-key="letter: B" position="-0.5 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="B" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: N" position="0.25 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="N" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: M" position="1.0 -1.4 0.02" width="0.7" height="0.55" color="#0f3460"><a-text value="M" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
-
-        <!-- BOTTOM ROW: CLEAR / SPACE / BACKSPACE -->
         <a-plane class="clickable" keyboard-key="letter: CLEAR" position="-3.5 -2.05 0.02" width="1.5" height="0.55" color="#8b1a2b"><a-text value="CLEAR" align="center" position="0 0 0.01" color="white" scale="0.6 0.6 0.6"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: SPACE" position="-0.75 -2.05 0.02" width="3.5" height="0.55" color="#0f3460"><a-text value="SPACE" align="center" position="0 0 0.01" color="white" scale="0.8 0.8 0.8"></a-text></a-plane>
         <a-plane class="clickable" keyboard-key="letter: BACK" position="2.55 -2.05 0.02" width="1.6" height="0.55" color="#8b1a2b"><a-text value="BACKSPACE" align="center" position="0 0 0.01" color="white" scale="0.5 0.5 0.5"></a-text></a-plane>
-
-        <!-- ASK button -->
         <a-plane class="clickable" keyboard-key="letter: ASK" position="3.95 -1.05 0.02" width="1.4" height="1.4" color="#e94560"><a-text value="ASK\nPhi-3" align="center" position="0 0 0.01" color="white" scale="0.9 0.9 0.9"></a-text></a-plane>
-
       </a-entity>
     </a-scene>
 
     <script>
-      // Gradient sky shader (offline)
       AFRAME.registerShader('skygradient', {
         schema: {
           topColor:    { type: 'color', default: '#05070f', is: 'uniform' },
@@ -259,7 +179,6 @@
         `
       });
 
-      // Starfield
       AFRAME.registerComponent('starfield', {
         schema: { count: { default: 600 }, radius: { default: 70 } },
         init: function () {
@@ -269,70 +188,113 @@
             const r = this.data.radius * (0.55 + Math.random() * 0.45);
             const theta = Math.random() * Math.PI * 2;
             const phi = Math.acos(2 * Math.random() - 1);
-            positions.push(
-              r * Math.sin(phi) * Math.cos(theta),
-              r * Math.cos(phi),
-              r * Math.sin(phi) * Math.sin(theta)
-            );
+            positions.push(r*Math.sin(phi)*Math.cos(theta), r*Math.cos(phi), r*Math.sin(phi)*Math.sin(theta));
           }
           geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-          const material = new THREE.PointsMaterial({
-            color: 0xbfd0ff, size: 0.35, sizeAttenuation: true, transparent: true, opacity: 0.9
-          });
+          const material = new THREE.PointsMaterial({ color: 0xbfd0ff, size: 0.35, sizeAttenuation: true, transparent: true, opacity: 0.9 });
           this.el.setObject3D('stars', new THREE.Points(geometry, material));
         }
       });
 
-      // Binary 0/1 rain: one animated canvas texture on a surrounding cylinder
-      AFRAME.registerComponent('binary-rain', {
-        schema: { radius: { default: 34 }, height: { default: 48 } },
+
+      // Drifting glyph "rain" on a surrounding cylinder (one animated texture)
+      AFRAME.registerComponent('glyph-rain', {
+        schema: { glyphs: { default: '0,1' }, dir: { default: 1 } },
         init: function () {
           const canvas = document.createElement('canvas');
           canvas.width = 1024; canvas.height = 1024;
           const ctx = canvas.getContext('2d');
-          const cols = 44, rows = 44;
-          const cw = canvas.width / cols, rh = canvas.height / rows;
+          const glyphs = this.data.glyphs.split(',');
+          const cols = 40, rows = 40, cw = canvas.width / cols, rh = canvas.height / rows;
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.font = Math.floor(rh * 0.8) + 'px monospace';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
+          ctx.font = Math.floor(rh * 0.7) + 'px monospace';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
           for (let c = 0; c < cols; c++) {
             for (let r = 0; r < rows; r++) {
-              const bit = Math.random() < 0.5 ? '0' : '1';
-              const a = 0.12 + Math.random() * 0.55;
-              // mostly teal signal, occasional coral accent
-              ctx.fillStyle = (Math.random() < 0.12)
-                ? 'rgba(233,69,96,' + a + ')'
-                : 'rgba(76,224,179,' + a + ')';
-              ctx.fillText(bit, c * cw + cw / 2, r * rh + rh / 2);
+              const g = glyphs[Math.floor(Math.random() * glyphs.length)];
+              const a = 0.12 + Math.random() * 0.5;
+              ctx.fillStyle = (Math.random() < 0.12) ? 'rgba(233,69,96,' + a + ')' : 'rgba(76,224,179,' + a + ')';
+              ctx.fillText(g, c * cw + cw / 2, r * rh + rh / 2);
             }
           }
           const texture = new THREE.CanvasTexture(canvas);
-          texture.wrapS = THREE.RepeatWrapping;
-          texture.wrapT = THREE.RepeatWrapping;
+          texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
           texture.repeat.set(5, 3);
           this.texture = texture;
-
-          const geo = new THREE.CylinderGeometry(this.data.radius, this.data.radius, this.data.height, 48, 1, true);
-          const mat = new THREE.MeshBasicMaterial({
-            map: texture, side: THREE.BackSide, transparent: true, opacity: 0.55, depthWrite: false
-          });
-          const mesh = new THREE.Mesh(geo, mat);
-          mesh.position.y = 12;
+          const geo = new THREE.CylinderGeometry(34, 34, 48, 48, 1, true);
+          const mat = new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide, transparent: true, opacity: 0.5, depthWrite: false });
+          const mesh = new THREE.Mesh(geo, mat); mesh.position.y = 12;
           this.el.setObject3D('rain', mesh);
         },
+        tick: function (t, dt) { if (this.texture && dt) { this.texture.offset.y += (dt / 1000) * 0.05 * this.data.dir; } }
+      });
+
+
+      // Several staircases floating at impossible orthogonal angles
+      AFRAME.registerComponent('angle-stairs', {
+        schema: { count: { default: 16 } },
+        init: function () {
+          const teal = 0xd7def0, coral = 0x9fb0d8;
+          const n = 6, sw = 3, sh = 0.5, sd = 1.2;
+        const mkFlight = (col, n, sw, sh, sd) => {
+          const g = new THREE.Group();
+          for (let i = 0; i < n; i++) {
+            const m = new THREE.Mesh(new THREE.BoxGeometry(sw, sh, sd),
+              new THREE.MeshBasicMaterial({ color: col, wireframe: true, transparent: true, opacity: 0.5 }));
+            m.position.set(0, i * sh, i * sd);
+            g.add(m);
+          }
+          return g;
+        };
+          const group = new THREE.Group();
+          this.flights = [];
+          for (let i = 0; i < this.data.count; i++) {
+            const fl = mkFlight((i % 3 === 0) ? coral : teal, n, sw, sh, sd);
+            const R = 30 + Math.random() * 26, th = Math.random() * Math.PI * 2, ph = Math.random() * Math.PI * 0.85;
+            fl.position.set(R * Math.sin(ph) * Math.cos(th), Math.abs(R * Math.cos(ph)) + 2, R * Math.sin(ph) * Math.sin(th));
+            fl.rotation.set(Math.floor(Math.random() * 4) * Math.PI / 2, Math.random() * Math.PI * 2, Math.floor(Math.random() * 4) * Math.PI / 2);
+            group.add(fl);
+            this.flights.push({
+              mesh: fl,
+              ax: (Math.random() - 0.5) * 0.25,
+              ay: (Math.random() - 0.5) * 0.35,
+              az: (Math.random() - 0.5) * 0.25
+            });
+          }
+          this.el.setObject3D('stairs', group); this.group = group;
+        },
         tick: function (t, dt) {
-          if (this.texture && dt) { this.texture.offset.y += (dt / 1000) * 0.06; }
+          if (!this.group || !dt) return;
+          const d = dt / 1000;
+          this.group.rotation.y = Math.sin(t / 12000) * 0.3;   // gentle overall drift
+          this.flights.forEach((o) => {                        // each staircase spins on its own
+            o.mesh.rotation.x += o.ax * d;
+            o.mesh.rotation.y += o.ay * d;
+            o.mesh.rotation.z += o.az * d;
+          });
+        }
+      });
+
+      // One very wide staircase rising from the floor and receding into the distance
+      AFRAME.registerComponent('grand-stairs', {
+        init: function () {
+          const col = 0xc8d2ee;                 // pale Escher-like grey
+          const group = new THREE.Group();
+          const steps = 44, w = 90, sh = 0.55, sd = 1.7;
+          for (let i = 0; i < steps; i++) {
+            const op = Math.max(0.07, 0.5 - i * 0.011);   // fade into the distance
+            const m = new THREE.Mesh(new THREE.BoxGeometry(w, sh, sd),
+              new THREE.MeshBasicMaterial({ color: col, wireframe: true, transparent: true, opacity: op }));
+            m.position.set(0, i * sh, -20 - i * sd);       // start well behind, rise + recede
+            group.add(m);
+          }
+          this.el.setObject3D('grand', group);
         }
       });
 
       AFRAME.registerComponent('navigate-on-click', {
         schema: { url: { type: 'string' } },
-        init: function () {
-          this.el.addEventListener('click', () => {
-            window.location.href = this.data.url;
-          });
-        }
+        init: function () { this.el.addEventListener('click', () => { window.location.href = this.data.url; }); }
       });
 
       AFRAME.registerComponent('hover-glow', {
@@ -353,32 +315,16 @@
           const el = this.el;
           const letter = this.data.letter;
           const originalColor = el.getAttribute('color');
-
-          el.addEventListener('mouseenter', () => {
-            el.setAttribute('color', '#ff6b8a');
-          });
-          el.addEventListener('mouseleave', () => {
-            el.setAttribute('color', originalColor);
-          });
-
+          el.addEventListener('mouseenter', () => { el.setAttribute('color', '#ff6b8a'); });
+          el.addEventListener('mouseleave', () => { el.setAttribute('color', originalColor); });
           el.addEventListener('click', () => {
             if (isWaiting) return;
             const display = document.getElementById('input-display');
-
-            if (letter === 'SPACE') {
-              currentInput += ' ';
-            } else if (letter === 'BACK') {
-              currentInput = currentInput.slice(0, -1);
-            } else if (letter === 'CLEAR') {
-              currentInput = '';
-            } else if (letter === 'ASK') {
-              if (currentInput.trim() === '') return;
-              askTutor(currentInput.trim());
-              return;
-            } else {
-              currentInput += letter;
-            }
-
+            if (letter === 'SPACE') { currentInput += ' '; }
+            else if (letter === 'BACK') { currentInput = currentInput.slice(0, -1); }
+            else if (letter === 'CLEAR') { currentInput = ''; }
+            else if (letter === 'ASK') { if (currentInput.trim() === '') return; askTutor(currentInput.trim()); return; }
+            else { currentInput += letter; }
             display.setAttribute('value', currentInput || 'Gaze at letters to type...');
           });
         }
@@ -390,14 +336,13 @@
         const display = document.getElementById('input-display');
         response.setAttribute('value', 'Thinking...');
         display.setAttribute('value', 'Q: ' + question);
-
         try {
           const res = await fetch('http://localhost:11434/api/generate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               model: 'phi3',
-              prompt: 'You are a discrete mathematics tutor. Answer this question about logic gates concisely in 3-4 sentences max: ' + question,
+              prompt: 'You are a discrete mathematics tutor. Answer this question about mathematical proofs concisely in 3-4 sentences max: ' + question,
               stream: false
             })
           });
@@ -406,7 +351,6 @@
         } catch (err) {
           response.setAttribute('value', 'Error: Could not reach Ollama. Make sure it is running.');
         }
-
         currentInput = '';
         isWaiting = false;
       }
